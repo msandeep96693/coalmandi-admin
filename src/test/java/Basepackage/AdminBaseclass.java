@@ -16,6 +16,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
@@ -53,7 +54,9 @@ public class AdminBaseclass {
 		
 		if(Browsername.equalsIgnoreCase("chrome"))
 		{
-			driver = new ChromeDriver();
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--start-maximized");
+			driver = new ChromeDriver(options);
 		} 
 		else if (Browsername.equalsIgnoreCase("firefox"))
 		{
