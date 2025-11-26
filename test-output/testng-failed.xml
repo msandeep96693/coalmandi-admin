@@ -7,7 +7,7 @@
         <methods>
           <include name="tear"/>
           <include name="setup"/>
-          <include name="usermanagementcreateandupdateopsentityflow"/>
+          <include name="createandupdatekpoentityflow"/>
         </methods>
       </class> <!-- AdminTestcaseExecution.usermanagementExecutionclass -->
     </classes>

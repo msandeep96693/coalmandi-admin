@@ -18,12 +18,22 @@ public class usermanagementExecutionclass  extends AdminBaseclass {
 	}
 	
 	
-	@Test(priority = 1, enabled = true)
-	public void usermanagementcreateandupdateopsentityflow() throws InterruptedException, AWTException
+	@Test(priority = 1, enabled = false)
+	public void createandupdateopsentityflow() throws InterruptedException, AWTException
 	{
 		 user = new Usermanagementpage(driver);
 		 user.createandupdateopsbranchandmanager(prop.getProperty("emailID"), prop.getProperty("password"),
  				 prop.getProperty("sidebarusermgmtname"), prop.getProperty("Entityname"));
 	}
+	
+	@Test(priority = 1, enabled = true)
+	public void createandupdatekpoentityflow() throws InterruptedException, AWTException
+	{
+		 user = new Usermanagementpage(driver);
+		 user.createandupdatekpoentityandmanager(prop.getProperty("emailID"), prop.getProperty("password"),
+ 				 prop.getProperty("sidebarusermgmtname"), prop.getProperty("Entityname"));
+	}
+	
+	
 	
 }

@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,13 +42,16 @@ public class Usermanagementpage extends adminBasicpage {
 	private WebElement searchtextfield;
 	
 	@FindBy(xpath = "//div[@class='ant-table-content']/table//tbody/tr")
-	private List<WebElement> opsbranchlistdata;
+	private List<WebElement> listdata;
 	
 	@FindBy(xpath = "//button[.='Create New']")
 	private WebElement createnewbutton;
 	
 	@FindBy(xpath = "//input[@placeholder='Enter entity name']")
-	private WebElement entitynamefield;
+	private WebElement entitynamefield;  
+	
+	@FindBy(xpath = "//input[@placeholder='Enter entity name']")
+	private WebElement entitynamefield1;
 	
 	@FindBy(xpath = "(//div[@class='ant-select-selection-overflow'])[1]")
 	private WebElement clickonstatedropdown;
@@ -67,7 +71,7 @@ public class Usermanagementpage extends adminBasicpage {
 	@FindBy(xpath = "(//button[@type='button'])[4]")
 	private WebElement kebabbutton;
 	
-	// update entity 
+	// update ops entity 
 	@FindBy(xpath = "//button[.='Edit']") 
 	private WebElement editbutton;
 	
@@ -97,7 +101,8 @@ public class Usermanagementpage extends adminBasicpage {
 	@FindBy(xpath = "//input[@type='file']")
 	private WebElement fileupload;
 	
-	
+	@FindBy(xpath = "//div[@class='ant-select-item-option-content']")
+	private WebElement branchoption;
 	
 	
 	public void usermanagementlistpage(String email, String pwd, String sidebarusermgmtname
@@ -116,10 +121,10 @@ public class Usermanagementpage extends adminBasicpage {
 		waitforElement(searchtextfield);
 		searchtextfield.sendKeys("ops branch");
 		
-		for(int i = 0; i<= opsbranchlistdata.size(); i++)
+		for(int i = 0; i<= listdata.size(); i++)
 		{
-			 String listdata = opsbranchlistdata.get(1).getText();
-			 System.out.println("List data :- "+ listdata);
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
 		}
 		
 		waitforElement(clickonprofile);
@@ -175,10 +180,10 @@ public class Usermanagementpage extends adminBasicpage {
 		waitforElement(createentitybutton);
 		javascriptclick(createentitybutton);
 		
-		for(int i = 0; i<= opsbranchlistdata.size(); i++)
+		for(int i = 0; i<= listdata.size(); i++)
 		{
-			 String listdata = opsbranchlistdata.get(1).getText();
-			 System.out.println("List data :- "+ listdata);
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
 		}
 		Thread.sleep(3000);
 		
@@ -190,10 +195,10 @@ public class Usermanagementpage extends adminBasicpage {
 		waitforElement(editbutton);
 		javascriptclick(editbutton);
 		
-		waitforElement(entitynamefield);
-		entitynamefield.clear();
+		waitforElement(entitynamefield1);
+		entitynamefield1.clear();
 		Thread.sleep(1000);
-		entitynamefield.sendKeys(setRandomName());
+		entitynamefield1.sendKeys(setRandomName());
 		
 //		waitforElement(clickonstatedropdown);
 //		javascriptclick(clickonstatedropdown);
@@ -227,10 +232,10 @@ public class Usermanagementpage extends adminBasicpage {
 		javascriptclick(updateentitybutton);
 		
 		Thread.sleep(1000);
-		for(int i = 0; i<= opsbranchlistdata.size(); i++)
+		for(int i = 0; i<= listdata.size(); i++)
 		{
-			 String listdata = opsbranchlistdata.get(1).getText();
-			 System.out.println("List data :- "+ listdata);
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
 		}
 		
 		waitforElement(clickonprofile);
@@ -240,15 +245,86 @@ public class Usermanagementpage extends adminBasicpage {
 		clickonlogoutbtn.click();
 	}
 	
-	public void createandupdatekpoentityandmanager(String email, String pwd, String sidebarusermgmtname
-			) throws InterruptedException
+	public void createandupdatekpoentityandmanager(String email, String pwd, String sidebarusermgmtname,
+			String Entityname) throws InterruptedException
 	{
 		adminsigninpage adminsignin = new adminsigninpage(driver);
 		adminsignin.signinpage(email, pwd);
 		
 		ClickAction(sidebarusermgmtname);
 		
+		waitforElement(managekpobutton);
+		javascriptclick(managekpobutton);
 		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		Thread.sleep(2000);
+		
+		waitforElement(entitynamefield);
+		entitynamefield.sendKeys(setRandomName());
+		
+		waitforElement(enteraddresstextarea);
+		enteraddresstextarea.sendKeys("BTM 1st stage, Bangalore");
+		
+		waitforElement(gstnumberfield);
+		gstnumberfield.sendKeys("09BTWPS5056G1ZV");
+		
+		waitforElement(maxteammemberfield);
+		maxteammemberfield.sendKeys("2");
+		
+		waitforElement(clickonbranchdropdown);
+		javascriptclick(clickonbranchdropdown);
+		
+		waitforElement(branchoption);
+		javascriptclick(branchoption);
+		
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].style.display='block';", fileupload);
+		fileupload.sendKeys("C:\\Users\\User\\Desktop\\Background images\\Bg-1.jpg");
+		// /home/active34/Downloads/photos /QA club photos/Club 7.png
+		
+//		waitforElement(createentitybutton);
+//		javascriptclick(createentitybutton);
+		
+		Thread.sleep(1000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
+		
+		waitforElement(clickonprofile);
+		javascriptclick(clickonprofile);
+		
+		waitforElement(clickonlogoutbtn);
+		clickonlogoutbtn.click();
+		
+		
+		// update kpo entity
+		
+		Thread.sleep(3000);
+		
+		waitforElement(kebabbutton);
+		javascriptclick(kebabbutton);
+		
+		waitforElement(editbutton);
+		javascriptclick(editbutton);
+		
+		waitforElement(entitynamefield1);
+		entitynamefield1.clear();
+		Thread.sleep(1000);
+		entitynamefield1.sendKeys(setRandomName());
+		
+		waitforElement(updateentitybutton);
+		javascriptclick(updateentitybutton);
+		
+		Thread.sleep(1000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
 		
 		waitforElement(clickonprofile);
 		javascriptclick(clickonprofile);
