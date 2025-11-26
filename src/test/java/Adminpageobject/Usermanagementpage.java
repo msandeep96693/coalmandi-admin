@@ -1,10 +1,15 @@
 package Adminpageobject;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class Usermanagementpage extends adminBasicpage {
@@ -25,8 +30,14 @@ public class Usermanagementpage extends adminBasicpage {
 	@FindBy(xpath = "//a[@href='/user-management/admin-users']")
 	private WebElement adminuserbutton;
 	
+	@FindBy(xpath = "//span[@class='text-sm font-medium text-white']") 
+	private WebElement clickonprofile;
+	
+	@FindBy(xpath = "//button[.='Logout']")  
+	private WebElement clickonlogoutbtn;
+	
 	// Manage ops
-	@FindBy(xpath = "//input[@type='search']")
+	@FindBy(xpath = "//input[@placeholder='Search by Entity Name']")
 	private WebElement searchtextfield;
 	
 	@FindBy(xpath = "//div[@class='ant-table-content']/table//tbody/tr")
@@ -63,6 +74,9 @@ public class Usermanagementpage extends adminBasicpage {
 	@FindBy(xpath = "//button[.='Update Entity']")
 	private WebElement updateentitybutton;
 	
+	@FindBy(xpath = "//button[.='View']")
+	private List<WebElement> clickonviewbutton;
+	
 	// manager kpo 
 	
 	@FindBy(xpath = "//textarea")
@@ -86,8 +100,192 @@ public class Usermanagementpage extends adminBasicpage {
 	
 	
 	
+	public void usermanagementlistpage(String email, String pwd, String sidebarusermgmtname
+			) throws InterruptedException
+	{
+		adminsigninpage adminsignin = new adminsigninpage(driver);
+		adminsignin.signinpage(email, pwd);
+		
+		ClickAction(sidebarusermgmtname);
+		
+		waitforElement(manageopsbutton);
+		javascriptclick(manageopsbutton);
+		
+		Thread.sleep(3000);
+		
+		waitforElement(searchtextfield);
+		searchtextfield.sendKeys("ops branch");
+		
+		for(int i = 0; i<= opsbranchlistdata.size(); i++)
+		{
+			 String listdata = opsbranchlistdata.get(1).getText();
+			 System.out.println("List data :- "+ listdata);
+		}
+		
+		waitforElement(clickonprofile);
+		javascriptclick(clickonprofile);
+		
+		waitforElement(clickonlogoutbtn);
+		clickonlogoutbtn.click();
+		
+		
+	}
 	
+	public void createandupdateopsbranchandmanager(String email, String pwd, String sidebarusermgmtname,
+			String Entityname ) throws InterruptedException, AWTException
+	{
+		adminsigninpage adminsignin = new adminsigninpage(driver);
+		adminsignin.signinpage(email, pwd);
+		
+		ClickAction(sidebarusermgmtname);
+		
+		waitforElement(manageopsbutton);
+		javascriptclick(manageopsbutton);
+		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(entitynamefield);
+		entitynamefield.sendKeys(setRandomName());
+		
+		waitforElement(clickonstatedropdown);
+		javascriptclick(clickonstatedropdown);
+		
+		waitforElement(statesearchfield);
+		statesearchfield.sendKeys("Andh");
+		Thread.sleep(2000);
+		
+		Actions action = new Actions(driver);
+		action.sendKeys(Keys.ENTER).perform();
+		action.sendKeys(Keys.ESCAPE).perform();
+		
+		Thread.sleep(2000);
+		waitforElement(clickondistrictdropdown);
+		javascriptclick(clickondistrictdropdown);
+		
+		waitforElement(districtsearchfield);
+		districtsearchfield.sendKeys("kadapa");
+		Thread.sleep(2000);
+		
+		action.sendKeys(Keys.ENTER).perform();
+		action.sendKeys(Keys.ESCAPE).perform();
+		
+		Thread.sleep(2000);
+		
+		waitforElement(createentitybutton);
+		javascriptclick(createentitybutton);
+		
+		for(int i = 0; i<= opsbranchlistdata.size(); i++)
+		{
+			 String listdata = opsbranchlistdata.get(1).getText();
+			 System.out.println("List data :- "+ listdata);
+		}
+		Thread.sleep(3000);
+		
+		// update the ops branch
+		
+		waitforElement(kebabbutton);
+		javascriptclick(kebabbutton);
+		
+		waitforElement(editbutton);
+		javascriptclick(editbutton);
+		
+		waitforElement(entitynamefield);
+		entitynamefield.clear();
+		Thread.sleep(1000);
+		entitynamefield.sendKeys(setRandomName());
+		
+//		waitforElement(clickonstatedropdown);
+//		javascriptclick(clickonstatedropdown);
+//		
+//		waitforElement(statesearchfield);
+//		statesearchfield.clear();
+//		Thread.sleep(1000);
+//		statesearchfield.sendKeys("Andh");
+//		Thread.sleep(2000);
+//		
+//		Actions action1 = new Actions(driver);
+//		action1.sendKeys(Keys.ENTER).perform();
+//		action1.sendKeys(Keys.ESCAPE).perform();
+//		
+//		Thread.sleep(2000);
+//		waitforElement(clickondistrictdropdown);
+//		javascriptclick(clickondistrictdropdown);
+//		
+//		waitforElement(districtsearchfield);
+//		districtsearchfield.clear();
+//		Thread.sleep(1000);
+//		districtsearchfield.sendKeys("krishna");
+//		Thread.sleep(2000);
+//		
+//		action.sendKeys(Keys.ENTER).perform();
+//		action.sendKeys(Keys.ESCAPE).perform();
+//		
+//		Thread.sleep(2000);
+		
+		waitforElement(updateentitybutton);
+		javascriptclick(updateentitybutton);
+		
+		Thread.sleep(1000);
+		for(int i = 0; i<= opsbranchlistdata.size(); i++)
+		{
+			 String listdata = opsbranchlistdata.get(1).getText();
+			 System.out.println("List data :- "+ listdata);
+		}
+		
+		waitforElement(clickonprofile);
+		javascriptclick(clickonprofile);
+		
+		waitforElement(clickonlogoutbtn);
+		clickonlogoutbtn.click();
+	}
 	
+	public void createandupdatekpoentityandmanager(String email, String pwd, String sidebarusermgmtname
+			) throws InterruptedException
+	{
+		adminsigninpage adminsignin = new adminsigninpage(driver);
+		adminsignin.signinpage(email, pwd);
+		
+		ClickAction(sidebarusermgmtname);
+		
+		
+		
+		waitforElement(clickonprofile);
+		javascriptclick(clickonprofile);
+		
+		waitforElement(clickonlogoutbtn);
+		clickonlogoutbtn.click();
+	}
+	
+	public void createandupdateopsadmin(String email, String pwd, String sidebarusermgmtname
+			) throws InterruptedException
+	{
+		adminsigninpage adminsignin = new adminsigninpage(driver);
+		adminsignin.signinpage(email, pwd);
+		
+		ClickAction(sidebarusermgmtname);
+		
+		waitforElement(clickonprofile);
+		javascriptclick(clickonprofile);
+		
+		waitforElement(clickonlogoutbtn);
+		clickonlogoutbtn.click();
+	}
+	
+	public void createandupdatekpoadmin(String email, String pwd, String sidebarusermgmtname
+			) throws InterruptedException
+	{
+		adminsigninpage adminsignin = new adminsigninpage(driver);
+		adminsignin.signinpage(email, pwd);
+		
+		ClickAction(sidebarusermgmtname);
+		
+		waitforElement(clickonprofile);
+		javascriptclick(clickonprofile);
+		
+		waitforElement(clickonlogoutbtn);
+		clickonlogoutbtn.click();
+	}
 	
 	
 	

@@ -11,7 +11,6 @@ public class adminsigninpage extends adminBasicpage {
 		super(driver);
 	}
 	
-	
 	@FindBy(xpath = "(//input[@type='text'])[1]") 
 	private WebElement emailfield;
 	
@@ -40,12 +39,12 @@ public class adminsigninpage extends adminBasicpage {
 					JavascriptExecutor js = (JavascriptExecutor)driver;
 					js.executeScript("arguments[0].click();", siginbtn );
 			
-			Thread.sleep(3000);
-			waitforElement(clickonprofile);
-			javascriptclick(clickonprofile);
-			
-			waitforElement(clickonlogoutbtn);
-			clickonlogoutbtn.click();
+//			Thread.sleep(3000);
+//			waitforElement(clickonprofile);
+//			javascriptclick(clickonprofile);
+//			
+//			waitforElement(clickonlogoutbtn);
+//			clickonlogoutbtn.click();
 			
 	}
 }
