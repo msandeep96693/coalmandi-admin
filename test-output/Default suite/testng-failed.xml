@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="AdminTestcaseExecution.usermanagementExecutionclass">
+      <class name="AdminTestcaseExecution.MasterdataExecutionclass">
         <methods>
+          <include name="masterdataexecution"/>
           <include name="tear"/>
           <include name="setup"/>
-          <include name="createandupdatekpoentityflow"/>
         </methods>
-      </class> <!-- AdminTestcaseExecution.usermanagementExecutionclass -->
+      </class> <!-- AdminTestcaseExecution.MasterdataExecutionclass -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

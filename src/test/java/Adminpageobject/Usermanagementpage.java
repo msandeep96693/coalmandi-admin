@@ -34,7 +34,7 @@ public class Usermanagementpage extends adminBasicpage {
 	@FindBy(xpath = "//span[@class='text-sm font-medium text-white']") 
 	private WebElement clickonprofile;
 	
-	@FindBy(xpath = "//button[.='Logout']")  
+	@FindBy(xpath = "//button[.='Logout']")
 	private WebElement clickonlogoutbtn;
 	
 	// Manage ops
@@ -103,6 +103,28 @@ public class Usermanagementpage extends adminBasicpage {
 	
 	@FindBy(xpath = "//div[@class='ant-select-item-option-content']")
 	private WebElement branchoption;
+	
+	
+	// admin user
+	
+	@FindBy(xpath = "//span[.='OPS Admin']")
+	private WebElement opsadmintabbutton;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter full name']")
+	private WebElement fullnamefield;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter email address']")
+	private WebElement enteremailaddressfield;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter phone number']")
+	private WebElement enterphonenumberfield;
+	
+	@FindBy(xpath = "(//button[@type='button'])[8]")
+	private WebElement createopsadminbutton;
+	
+	@FindBy(xpath = "(//button[@type='button'])[10]")
+	private WebElement createkpoadminbutton;
+	
 	
 	
 	public void usermanagementlistpage(String email, String pwd, String sidebarusermgmtname
@@ -333,13 +355,42 @@ public class Usermanagementpage extends adminBasicpage {
 		clickonlogoutbtn.click();
 	}
 	
-	public void createandupdateopsadmin(String email, String pwd, String sidebarusermgmtname
-			) throws InterruptedException
+	public void createandupdateopsadmin(String email, String pwd, String sidebarusermgmtname,
+			String opsfullname) throws InterruptedException
 	{
 		adminsigninpage adminsignin = new adminsigninpage(driver);
 		adminsignin.signinpage(email, pwd);
 		
 		ClickAction(sidebarusermgmtname);
+		
+		waitforElement(adminuserbutton);
+		javascriptclick(adminuserbutton);
+		
+		waitforElement(opsadmintabbutton);
+		javascriptclick(opsadmintabbutton);
+		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(fullnamefield);
+		fullnamefield.sendKeys(opsfullname);
+		
+		waitforElement(enteremailaddressfield);
+		enteremailaddressfield.sendKeys("New Delhi");
+		
+		waitforElement(enterphonenumberfield);
+		enterphonenumberfield.sendKeys(setRandomMobileNumber());
+		
+		waitforElement(createopsadminbutton);
+		javascriptclick(createopsadminbutton);
+		
+		Thread.sleep(1000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
+		
 		
 		waitforElement(clickonprofile);
 		javascriptclick(clickonprofile);
@@ -348,13 +399,38 @@ public class Usermanagementpage extends adminBasicpage {
 		clickonlogoutbtn.click();
 	}
 	
-	public void createandupdatekpoadmin(String email, String pwd, String sidebarusermgmtname
-			) throws InterruptedException
+	public void createandupdatekpoadmin(String email, String pwd, String sidebarusermgmtname,
+			String kpofullname) throws InterruptedException
 	{
 		adminsigninpage adminsignin = new adminsigninpage(driver);
 		adminsignin.signinpage(email, pwd);
 		
 		ClickAction(sidebarusermgmtname);
+		
+		waitforElement(adminuserbutton);
+		javascriptclick(adminuserbutton);
+		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(fullnamefield);
+		fullnamefield.sendKeys(kpofullname);
+		
+		waitforElement(enteremailaddressfield);
+		enteremailaddressfield.sendKeys("New Delhi");
+		
+		waitforElement(enterphonenumberfield);
+		enterphonenumberfield.sendKeys(setRandomMobileNumber());
+		
+		waitforElement(createkpoadminbutton);
+		javascriptclick(createkpoadminbutton);
+		
+		Thread.sleep(1000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
 		
 		waitforElement(clickonprofile);
 		javascriptclick(clickonprofile);

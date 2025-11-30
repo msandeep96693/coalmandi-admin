@@ -26,7 +26,7 @@ public class usermanagementExecutionclass  extends AdminBaseclass {
  				 prop.getProperty("sidebarusermgmtname"), prop.getProperty("Entityname"));
 	}
 	
-	@Test(priority = 1, enabled = true)
+	@Test(priority = 1, enabled = false)
 	public void createandupdatekpoentityflow() throws InterruptedException, AWTException
 	{
 		 user = new Usermanagementpage(driver);
@@ -34,6 +34,21 @@ public class usermanagementExecutionclass  extends AdminBaseclass {
  				 prop.getProperty("sidebarusermgmtname"), prop.getProperty("Entityname"));
 	}
 	
+	@Test(priority = 1, enabled = false)
+	public void createandupdateopsadminflow() throws InterruptedException, AWTException
+	{
+		 user = new Usermanagementpage(driver);
+		 user.createandupdateopsadmin(prop.getProperty("emailID"), prop.getProperty("password"),
+ 				 prop.getProperty("sidebarusermgmtname"), prop.getProperty("opsfullname"));
+	}
+	
+	@Test(priority = 1, enabled = true)
+	public void createandupdatekpoadminflow() throws InterruptedException, AWTException
+	{
+		 user = new Usermanagementpage(driver);
+		 user.createandupdatekpoadmin(prop.getProperty("emailID"), prop.getProperty("password"),
+ 				 prop.getProperty("sidebarusermgmtname"), prop.getProperty("kpofullname"));
+	}
 	
 	
 }
