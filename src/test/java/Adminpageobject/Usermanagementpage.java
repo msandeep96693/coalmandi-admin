@@ -1,11 +1,13 @@
 package Adminpageobject;
 
 import java.awt.AWTException;
+import java.awt.Desktop.Action;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -53,16 +55,16 @@ public class Usermanagementpage extends adminBasicpage {
 	@FindBy(xpath = "//input[@placeholder='Enter entity name']")
 	private WebElement entitynamefield1;
 	
-	@FindBy(xpath = "(//div[@class='ant-select-selection-overflow'])[1]")
+	@FindBy(xpath = "(//div[@class='css-b62m3t-container'])[1]")
 	private WebElement clickonstatedropdown;
 	
-	@FindBy(xpath = "(//div[@class='ant-select-selection-overflow'])[2]")
+	@FindBy(xpath = "(//div[@class='css-b62m3t-container'])[2]")
 	private WebElement  clickondistrictdropdown;
 	
-	@FindBy(xpath = "(//input[@type='search'])[2]")
+	@FindBy(xpath = "(//input[@type='text'])[2]")   // (//input[@type='text'])[2]  // //input[@id='react-select-4-input']
 	private WebElement statesearchfield;
 	
-	@FindBy(xpath = "(//input[@type='search'])[3]")
+	@FindBy(xpath = "(//input[@type='text'])[3]")
 	private WebElement districtsearchfield;
 	
 	@FindBy(xpath = "//button[.='Create Entity']")
@@ -70,6 +72,10 @@ public class Usermanagementpage extends adminBasicpage {
 	
 	@FindBy(xpath = "(//button[@type='button'])[4]")
 	private WebElement kebabbutton;
+	
+	@FindBy(xpath = "//div[@role='option']/input")
+	private List<WebElement> stateanddistrictoptions;
+
 	
 	// update ops entity 
 	@FindBy(xpath = "//button[.='Edit']") 
@@ -102,10 +108,10 @@ public class Usermanagementpage extends adminBasicpage {
 	private WebElement fileupload;
 	
 	@FindBy(xpath = "//div[@class='ant-select-item-option-content']")
-	private WebElement branchoption;
+	private List<WebElement> branchoption;
 	
 	
-	// admin user
+	// admin user  &   OPS manager  
 	
 	@FindBy(xpath = "//span[.='OPS Admin']")
 	private WebElement opsadmintabbutton;
@@ -122,10 +128,29 @@ public class Usermanagementpage extends adminBasicpage {
 	@FindBy(xpath = "(//button[@type='button'])[8]")
 	private WebElement createopsadminbutton;
 	
-	@FindBy(xpath = "(//button[@type='button'])[10]")
+	@FindBy(xpath = "//button[.='Update KPO Admin']")
+	private WebElement updatekpoadminbutton;
+	
+	@FindBy(xpath = "//button[.='Update OPS Admin']")
+	private WebElement updateopsadminbutton;
+	
+	@FindBy(xpath = "//button[.='Create KPO Admin']")
 	private WebElement createkpoadminbutton;
 	
+	@FindBy(xpath = "//button[.='Create OPS Manager']")
+	private WebElement createopsmanagerbtn;
 	
+	@FindBy(xpath = "//button[.='Update OPS Manager']")
+	private WebElement updateopsmanagerbtn;
+	
+	@FindBy(xpath = "//button[.='Create KPO Manager']")
+	private WebElement createkpomanagerbtn;
+	
+	@FindBy(xpath = "//button[.='Update KPO Manager']")
+	private WebElement updatekpoamanagerbtn;
+	
+	@FindBy(xpath = "//span[.='Mark as company admin']")
+	private WebElement markascompanyadmincheckbox;
 	
 	public void usermanagementlistpage(String email, String pwd, String sidebarusermgmtname
 			) throws InterruptedException
@@ -141,13 +166,15 @@ public class Usermanagementpage extends adminBasicpage {
 		Thread.sleep(3000);
 		
 		waitforElement(searchtextfield);
-		searchtextfield.sendKeys("ops branch");
+		searchtextfield.sendKeys("ops");
 		
 		for(int i = 0; i<= listdata.size(); i++)
 		{
 			 String listdetailsdata = listdata.get(1).getText();
 			 System.out.println("List data :- "+ listdetailsdata);
 		}
+		
+		Thread.sleep(2000);
 		
 		waitforElement(clickonprofile);
 		javascriptclick(clickonprofile);
@@ -158,8 +185,8 @@ public class Usermanagementpage extends adminBasicpage {
 		
 	}
 	
-	public void createandupdateopsbranchandmanager(String email, String pwd, String sidebarusermgmtname,
-			String Entityname ) throws InterruptedException, AWTException
+	public void createandupdateopsbranchandmanager(String email, String pwd, String sidebarusermgmtname
+			) throws InterruptedException, AWTException
 	{
 		adminsigninpage adminsignin = new adminsigninpage(driver);
 		adminsignin.signinpage(email, pwd);
@@ -171,31 +198,31 @@ public class Usermanagementpage extends adminBasicpage {
 		
 		waitforElement(createnewbutton);
 		javascriptclick(createnewbutton);
+		Thread.sleep(2000);
 		
 		waitforElement(entitynamefield);
 		entitynamefield.sendKeys(setRandomName());
 		
 		waitforElement(clickonstatedropdown);
-		javascriptclick(clickonstatedropdown);
+		clickonstatedropdown.click();
+//		javascriptclick(clickonstatedropdown);
 		
 		waitforElement(statesearchfield);
 		statesearchfield.sendKeys("Andh");
-		Thread.sleep(2000);
 		
-		Actions action = new Actions(driver);
-		action.sendKeys(Keys.ENTER).perform();
-		action.sendKeys(Keys.ESCAPE).perform();
+		stateanddistrictoptions.get(0).click();
+		driver.findElement(By.xpath("//div[.='Create ops Entity']")).click();
 		
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		waitforElement(clickondistrictdropdown);
-		javascriptclick(clickondistrictdropdown);
+		clickondistrictdropdown.click();
+//		javascriptclick(clickondistrictdropdown);
 		
 		waitforElement(districtsearchfield);
-		districtsearchfield.sendKeys("kadapa");
-		Thread.sleep(2000);
+		districtsearchfield.sendKeys("Chit");
 		
-		action.sendKeys(Keys.ENTER).perform();
-		action.sendKeys(Keys.ESCAPE).perform();
+		stateanddistrictoptions.get(0).click();
+		driver.findElement(By.xpath("//div[.='Create ops Entity']")).click();
 		
 		Thread.sleep(2000);
 		
@@ -218,37 +245,41 @@ public class Usermanagementpage extends adminBasicpage {
 		javascriptclick(editbutton);
 		
 		waitforElement(entitynamefield1);
-		entitynamefield1.clear();
+		entitynamefield1.click();
+		entitynamefield1.sendKeys(Keys.CONTROL + "a");
+		entitynamefield1.sendKeys(Keys.DELETE);
 		Thread.sleep(1000);
-		entitynamefield1.sendKeys(setRandomName());
+		entitynamefield1.sendKeys("Update ops branch");
 		
-//		waitforElement(clickonstatedropdown);
-//		javascriptclick(clickonstatedropdown);
-//		
-//		waitforElement(statesearchfield);
-//		statesearchfield.clear();
-//		Thread.sleep(1000);
-//		statesearchfield.sendKeys("Andh");
-//		Thread.sleep(2000);
-//		
+		waitforElement(clickonstatedropdown);
+		javascriptclick(clickonstatedropdown);
+		
+		waitforElement(statesearchfield);
+		statesearchfield.clear();
+		Thread.sleep(1000);
+		statesearchfield.sendKeys("Assam");
+		stateanddistrictoptions.get(0).click();
+		driver.findElement(By.xpath("//div[.='Edit ops Entity']")).click();
+		
 //		Actions action1 = new Actions(driver);
 //		action1.sendKeys(Keys.ENTER).perform();
 //		action1.sendKeys(Keys.ESCAPE).perform();
-//		
-//		Thread.sleep(2000);
-//		waitforElement(clickondistrictdropdown);
-//		javascriptclick(clickondistrictdropdown);
-//		
-//		waitforElement(districtsearchfield);
-//		districtsearchfield.clear();
-//		Thread.sleep(1000);
-//		districtsearchfield.sendKeys("krishna");
-//		Thread.sleep(2000);
-//		
+		
+		Thread.sleep(2000);
+		waitforElement(clickondistrictdropdown);
+		javascriptclick(clickondistrictdropdown);
+		
+		waitforElement(districtsearchfield);
+		districtsearchfield.clear();
+		Thread.sleep(1000);
+		districtsearchfield.sendKeys("Baksa");
+		stateanddistrictoptions.get(0).click();
+		driver.findElement(By.xpath("//div[.='Edit ops Entity']")).click();
+		
 //		action.sendKeys(Keys.ENTER).perform();
 //		action.sendKeys(Keys.ESCAPE).perform();
-//		
-//		Thread.sleep(2000);
+		
+		Thread.sleep(2000);
 		
 		waitforElement(updateentitybutton);
 		javascriptclick(updateentitybutton);
@@ -259,6 +290,55 @@ public class Usermanagementpage extends adminBasicpage {
 			 String listdetailsdata = listdata.get(1).getText();
 			 System.out.println("List data :- "+ listdetailsdata);
 		}
+		
+		
+		// crate manager under ops branch
+		
+		clickonviewbutton.get(0).click();
+		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(fullnamefield);
+		fullnamefield.sendKeys(setRandomName());
+		
+		waitforElement(enteremailaddressfield);
+		enteremailaddressfield.sendKeys(setRandomEmail());
+		
+		waitforElement(enterphonenumberfield);
+		enterphonenumberfield.sendKeys(setRandomMobileNumber());
+		
+		waitforElement(createopsmanagerbtn);
+		javascriptclick(createopsmanagerbtn);
+		
+		// update ops manager
+		
+		waitforElement(kebabbutton);
+		javascriptclick(kebabbutton);
+		
+		waitforElement(editbutton);
+		javascriptclick(editbutton);
+		
+		waitforElement(fullnamefield);
+		fullnamefield.click();
+		fullnamefield.sendKeys(Keys.CONTROL + "a");
+		fullnamefield.sendKeys(Keys.DELETE);
+		fullnamefield.sendKeys(setRandomName());
+		
+		waitforElement(enteremailaddressfield);
+		enteremailaddressfield.click();
+		enteremailaddressfield.sendKeys(Keys.CONTROL + "a");
+		enteremailaddressfield.sendKeys(Keys.DELETE);
+		enteremailaddressfield.sendKeys(setRandomEmail());
+		
+		waitforElement(enterphonenumberfield);
+		enterphonenumberfield.click();
+		enterphonenumberfield.sendKeys(Keys.CONTROL + "a");
+		enterphonenumberfield.sendKeys(Keys.DELETE);
+		enterphonenumberfield.sendKeys(setRandomMobileNumber());
+		
+		waitforElement(updateopsmanagerbtn);
+		javascriptclick(updateopsmanagerbtn);
 		
 		waitforElement(clickonprofile);
 		javascriptclick(clickonprofile);
@@ -295,37 +375,31 @@ public class Usermanagementpage extends adminBasicpage {
 		waitforElement(maxteammemberfield);
 		maxteammemberfield.sendKeys("2");
 		
-		waitforElement(clickonbranchdropdown);
-		javascriptclick(clickonbranchdropdown);
-		
-		waitforElement(branchoption);
-		javascriptclick(branchoption);
+		// click on branch
+		driver.findElement(By.xpath("(//input[@type='search'])[2]")).click();
+		branchoption.get(0).click();
+		Actions action =  new Actions(driver);
+		action.sendKeys(Keys.ESCAPE).perform();
 		
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].style.display='block';", fileupload);
-		fileupload.sendKeys("C:\\Users\\User\\Desktop\\Background images\\Bg-1.jpg");
+		fileupload.sendKeys("/home/active34/Downloads/photos /QA club photos/Club 7.png");
 		// /home/active34/Downloads/photos /QA club photos/Club 7.png
+		// C:\\Users\\User\\Desktop\\Background images\\Bg-1.jpg
 		
-//		waitforElement(createentitybutton);
-//		javascriptclick(createentitybutton);
+		waitforElement(createentitybutton); 
+		javascriptclick(createentitybutton); 
 		
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		for(int i = 0; i<= listdata.size(); i++)
 		{
 			 String listdetailsdata = listdata.get(1).getText();
 			 System.out.println("List data :- "+ listdetailsdata);
-		}
-		
-		waitforElement(clickonprofile);
-		javascriptclick(clickonprofile);
-		
-		waitforElement(clickonlogoutbtn);
-		clickonlogoutbtn.click();
-		
+		}		
 		
 		// update kpo entity
 		
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 		
 		waitforElement(kebabbutton);
 		javascriptclick(kebabbutton);
@@ -334,9 +408,30 @@ public class Usermanagementpage extends adminBasicpage {
 		javascriptclick(editbutton);
 		
 		waitforElement(entitynamefield1);
-		entitynamefield1.clear();
+		entitynamefield1.click();
+		entitynamefield1.sendKeys(Keys.CONTROL + "a");
+		entitynamefield1.sendKeys(Keys.DELETE);
 		Thread.sleep(1000);
 		entitynamefield1.sendKeys(setRandomName());
+		
+		waitforElement(enteraddresstextarea);
+		enteraddresstextarea.click();
+		enteraddresstextarea.sendKeys(Keys.CONTROL + "a");
+		enteraddresstextarea.sendKeys(Keys.DELETE);
+		Thread.sleep(1000);
+		enteraddresstextarea.sendKeys("ATM 1st stage, Mangalore");
+		
+		waitforElement(gstnumberfield);
+		gstnumberfield.click();
+		gstnumberfield.sendKeys(Keys.CONTROL + "a");
+		gstnumberfield.sendKeys(Keys.DELETE);
+		Thread.sleep(1000);
+		gstnumberfield.sendKeys("29CABPB5697M1Z5");
+		
+		waitforElement(maxteammemberfield);
+		maxteammemberfield.sendKeys(Keys.BACK_SPACE);
+		Thread.sleep(1000);
+		maxteammemberfield.sendKeys("6");
 		
 		waitforElement(updateentitybutton);
 		javascriptclick(updateentitybutton);
@@ -345,8 +440,61 @@ public class Usermanagementpage extends adminBasicpage {
 		for(int i = 0; i<= listdata.size(); i++)
 		{
 			 String listdetailsdata = listdata.get(1).getText();
-			 System.out.println("List data :- "+ listdetailsdata);
+			 System.out.println("update List data :- "+ listdetailsdata);
 		}
+		
+		
+		// create kpo manager under kpo company 
+		
+		
+		clickonviewbutton.get(0).click();
+				
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+				
+		waitforElement(fullnamefield);
+		fullnamefield.sendKeys(setRandomName());
+				
+		waitforElement(enteremailaddressfield);
+		enteremailaddressfield.sendKeys(setRandomEmail());
+				
+		waitforElement(enterphonenumberfield);
+		enterphonenumberfield.sendKeys(setRandomMobileNumber());
+				
+		// branch optional  ----  click on branch
+				
+		driver.findElement(By.xpath("(//input[@type='search'])[3]")).click();
+		branchoption.get(0).click();
+				
+		waitforElement(markascompanyadmincheckbox);
+		javascriptclick(markascompanyadmincheckbox);
+				
+		waitforElement(createkpomanagerbtn);
+		javascriptclick(createkpomanagerbtn);
+				
+		// update kpo manager
+		
+		Thread.sleep(1000);				
+		waitforElement(kebabbutton);
+		kebabbutton.click();
+				
+		waitforElement(editbutton);
+		javascriptclick(editbutton);
+				
+		waitforElement(fullnamefield);
+		fullnamefield.click();
+		fullnamefield.sendKeys(Keys.CONTROL + "a");
+		fullnamefield.sendKeys(Keys.DELETE);
+		fullnamefield.sendKeys(setRandomName());
+				
+		waitforElement(enterphonenumberfield);
+		enterphonenumberfield.click();
+		enterphonenumberfield.sendKeys(Keys.CONTROL + "a");
+		enterphonenumberfield.sendKeys(Keys.DELETE);
+		enterphonenumberfield.sendKeys(setRandomMobileNumber());
+			
+		waitforElement(updatekpoamanagerbtn);
+		javascriptclick(updatekpoamanagerbtn); 
 		
 		waitforElement(clickonprofile);
 		javascriptclick(clickonprofile);
@@ -376,7 +524,7 @@ public class Usermanagementpage extends adminBasicpage {
 		fullnamefield.sendKeys(opsfullname);
 		
 		waitforElement(enteremailaddressfield);
-		enteremailaddressfield.sendKeys("New Delhi");
+		enteremailaddressfield.sendKeys(setRandomEmail());
 		
 		waitforElement(enterphonenumberfield);
 		enterphonenumberfield.sendKeys(setRandomMobileNumber());
@@ -391,6 +539,29 @@ public class Usermanagementpage extends adminBasicpage {
 			 System.out.println("List data :- "+ listdetailsdata);
 		}
 		
+		
+		// update ops admin 
+		
+		waitforElement(kebabbutton);
+		javascriptclick(kebabbutton);
+				
+		waitforElement(editbutton);
+		javascriptclick(editbutton);
+	
+		waitforElement(fullnamefield);
+		fullnamefield.click();
+		fullnamefield.sendKeys(Keys.CONTROL + "a");
+		fullnamefield.sendKeys(Keys.DELETE);
+		fullnamefield.sendKeys(setRandomName());
+		
+		waitforElement(enterphonenumberfield);
+		enterphonenumberfield.click();
+		enterphonenumberfield.sendKeys(Keys.CONTROL + "a");
+		enterphonenumberfield.sendKeys(Keys.DELETE);
+		enterphonenumberfield.sendKeys(setRandomMobileNumber());
+		
+		waitforElement(updateopsadminbutton);
+		javascriptclick(updateopsadminbutton);
 		
 		waitforElement(clickonprofile);
 		javascriptclick(clickonprofile);
@@ -417,7 +588,7 @@ public class Usermanagementpage extends adminBasicpage {
 		fullnamefield.sendKeys(kpofullname);
 		
 		waitforElement(enteremailaddressfield);
-		enteremailaddressfield.sendKeys("New Delhi");
+		enteremailaddressfield.sendKeys(setRandomEmail());
 		
 		waitforElement(enterphonenumberfield);
 		enterphonenumberfield.sendKeys(setRandomMobileNumber());
@@ -431,6 +602,28 @@ public class Usermanagementpage extends adminBasicpage {
 			 String listdetailsdata = listdata.get(1).getText();
 			 System.out.println("List data :- "+ listdetailsdata);
 		}
+		
+		// update kpo admin 
+		waitforElement(kebabbutton);
+		javascriptclick(kebabbutton);
+				
+		waitforElement(editbutton);
+		javascriptclick(editbutton);
+	
+		waitforElement(fullnamefield);
+		fullnamefield.click();
+		fullnamefield.sendKeys(Keys.CONTROL + "a");
+		fullnamefield.sendKeys(Keys.DELETE);
+		fullnamefield.sendKeys("update kpo admin");
+		
+		waitforElement(enterphonenumberfield);
+		enterphonenumberfield.click();
+		enterphonenumberfield.sendKeys(Keys.CONTROL + "a");
+		enterphonenumberfield.sendKeys(Keys.DELETE);
+		enterphonenumberfield.sendKeys(setRandomMobileNumber());
+		
+		waitforElement(updatekpoadminbutton);
+		javascriptclick(updatekpoadminbutton);
 		
 		waitforElement(clickonprofile);
 		javascriptclick(clickonprofile);

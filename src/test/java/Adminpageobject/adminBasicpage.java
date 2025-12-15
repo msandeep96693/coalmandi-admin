@@ -121,7 +121,7 @@ public class adminBasicpage
 	 public String setRandomName()
 	   {
 		 String randomstring=RandomStringUtils.random(3,"abcdefghijklmnopqrstuvwxyz");
-		 return "ops Entity"+randomstring;
+		 return "ops "+randomstring;
 	   }
 	 
 	 public String setRandomEmail()
@@ -136,4 +136,9 @@ public class adminBasicpage
 		  return "9620"+randomnumeric;
 	   }
 	
+	 public String setRandomNameformasterdata()
+	   {
+		 String randomstring=RandomStringUtils.random(3,"abcdefghijklmnopqrstuvwxyz");
+		 return "Master data "+randomstring;
+	   }
 }

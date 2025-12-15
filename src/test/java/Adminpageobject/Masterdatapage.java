@@ -30,6 +30,53 @@ public class Masterdatapage  extends adminBasicpage {
 	@FindBy(xpath = "//button[.='Create']")
 	private WebElement createbutton;
 	
+	// ownership
+	@FindBy(xpath = "//input[@placeholder='Enter ownership type']")
+	private WebElement enterownershiptype;
+	
+	// product to trade
+	@FindBy(xpath = "//input[@placeholder='Enter coal type']")
+	private WebElement entercoaltype;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter hsn code']")
+	private WebElement enterhsncode;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter minimum listing quantity']")
+	private WebElement minilistingquantity;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter minimum listing quantity increment']")
+	private WebElement minilistingquantityincrement;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter minimum bidding quantity']")
+	private WebElement minibiddingquantity;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter minimum bidding quantity increment']")
+	private WebElement minibiddingquantityincrement;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter minimum bidding price increment']")
+	private WebElement minibiddingpriceincrement;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter minimum split quantity']")
+	private WebElement minisplitquantity;
+	
+	// origin of coal
+	@FindBy(xpath = "//input[@placeholder='Enter coal origin']")
+	private WebElement originofcoalfield;
+	
+	// coal source
+	@FindBy(xpath = "(//span[@class='ant-select-selection-item'])[3]")
+	private WebElement clickcoalsourcedropdown;
+	
+	@FindBy(xpath = "//div[@class='ant-select-item-option-content']")
+	private List<WebElement> coaloriginoptions;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter coal source']")
+	private WebElement coalsourcefield;
+	
+	
+	
+	
+	
 	@FindBy(xpath = "//div[@class='ant-table-content']/table//tbody/tr")
 	private List<WebElement> listdata;
 	
@@ -39,13 +86,14 @@ public class Masterdatapage  extends adminBasicpage {
 	private WebElement enterownershipfield;
 	
 	public void masterdata(String email, String pwd, String sidebarusermgmtname,
-			String Industrylistname) throws InterruptedException
+			String Industrylistname, String ownershiptypename, String producttotradename,
+			String originofcoalname, String coalsourcename) throws InterruptedException
 	{
 		adminsigninpage adminsignin = new adminsigninpage(driver);
 		adminsignin.signinpage(email, pwd);
 		
 		
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		
 		ClickAction(sidebarusermgmtname);
 		
@@ -54,7 +102,12 @@ public class Masterdatapage  extends adminBasicpage {
 		waitforElement(createnewbutton);
 		javascriptclick(createnewbutton);
 		
+		waitforElement(enterindustryfield);
+		enterindustryfield.sendKeys(setRandomNameformasterdata());
 		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		Thread.sleep(2000);
 		
 		
 		for(int i = 0; i<= listdata.size(); i++)
@@ -63,11 +116,124 @@ public class Masterdatapage  extends adminBasicpage {
 			 System.out.println("List data :- "+ listdetailsdata);
 		}
 		
+		// ---------------------- ownership type ------------------------------------------
+		
+		ClickAction(sidebarusermgmtname);
+		
+		clickonmasterdatalist(ownershiptypename);
+
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(enterownershiptype);
+		enterownershiptype.sendKeys(setRandomNameformasterdata());
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		Thread.sleep(2000);
+		
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
+		
+		//// ---------------------- product to trade ------------------------------------------
+		
+		ClickAction(sidebarusermgmtname);
+		
+		clickonmasterdatalist(producttotradename);
+
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(entercoaltype);
+		entercoaltype.sendKeys(setRandomNameformasterdata());
+		
+		waitforElement(enterhsncode);
+		enterhsncode.sendKeys("HSN346346");
+		
+		waitforElement(minilistingquantity);
+		minilistingquantity.sendKeys("500");
+		
+		waitforElement(minilistingquantityincrement);
+		minilistingquantityincrement.sendKeys("200");
+		
+		waitforElement(minibiddingquantity);
+		minibiddingquantity.sendKeys("500");
+		
+		waitforElement(minibiddingquantityincrement);
+		minibiddingquantityincrement.sendKeys("100");
+		
+		waitforElement(minibiddingpriceincrement);
+		minibiddingpriceincrement.sendKeys("150");
+		
+		waitforElement(minisplitquantity);
+		minisplitquantity.sendKeys("50");
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		
+		Thread.sleep(2000);
+		
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
+		
+		
+		// ------------- Origin of coal -------------------------
+		
+		ClickAction(sidebarusermgmtname);
+		
+		clickonmasterdatalist(originofcoalname);
+
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(originofcoalfield);
+		originofcoalfield.sendKeys(setRandomNameformasterdata());
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		
+		Thread.sleep(2000);
+		
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
+		
+		// ------------ coal sources -----------------------
+
+		ClickAction(sidebarusermgmtname);
+		
+		clickonmasterdatalist(coalsourcename);
+
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(clickcoalsourcedropdown);
+		javascriptclick(clickcoalsourcedropdown);
+		
+		coaloriginoptions.get(1).click();
+		
+		waitforElement(coalsourcefield);
+		coalsourcefield.sendKeys(setRandomNameformasterdata());
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		
+		Thread.sleep(2000);
+		
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
 	}
-	
-	
-	
-	
 	
 	
 	

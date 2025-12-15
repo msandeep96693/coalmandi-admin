@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="AdminTestcaseExecution.MasterdataExecutionclass">
+      <class name="AdminTestcaseExecution.usermanagementExecutionclass">
         <methods>
-          <include name="masterdataexecution"/>
           <include name="tear"/>
+          <include name="createandupdateopsentityflow"/>
           <include name="setup"/>
         </methods>
-      </class> <!-- AdminTestcaseExecution.MasterdataExecutionclass -->
+      </class> <!-- AdminTestcaseExecution.usermanagementExecutionclass -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

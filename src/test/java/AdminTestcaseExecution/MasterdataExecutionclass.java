@@ -12,7 +12,15 @@ public class MasterdataExecutionclass extends AdminBaseclass {
 	{
 		master = new Masterdatapage(driver);
 		 master.masterdata(prop.getProperty("emailID"), prop.getProperty("password"),
-				 prop.getProperty("sidebarmasterdataname"), prop.getProperty("Industrylistname"));
+				 prop.getProperty("sidebarmasterdataname"), prop.getProperty("Industrylistname"),
+				 prop.getProperty("ownershiptypename"), 
+				 prop.getProperty("producttotradename"),
+				 prop.getProperty("originofcoalname"),
+				 prop.getProperty("coalsourcename")
+				 
+				 
+				 
+				 );
 	}
 
 }
