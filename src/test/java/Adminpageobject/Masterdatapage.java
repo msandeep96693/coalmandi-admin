@@ -73,21 +73,40 @@ public class Masterdatapage  extends adminBasicpage {
 	@FindBy(xpath = "//input[@placeholder='Enter coal source']")
 	private WebElement coalsourcefield;
 	
-	
-	
-	
-	
 	@FindBy(xpath = "//div[@class='ant-table-content']/table//tbody/tr")
 	private List<WebElement> listdata;
 	
-	// Ownership
+	// grade of coal
 	
-	@FindBy(xpath = "//input[@placeholder='Enter ownership type']")
-	private WebElement enterownershipfield;
+	@FindBy(xpath = "//input[@placeholder='Enter coal grade name']")
+	private WebElement entercoalgradenamefield;
+	
+	@FindBy(xpath = "(//span[@class='ant-select-selection-item'])[4]")
+	private WebElement clickoncoalorigindropdown;
+	
+	@FindBy(xpath = "(//span[@class='ant-select-selection-item'])[5]")
+	private WebElement clickoncoaltypedropdown;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter unit']")
+	private WebElement enterunitfield;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter value range']" )
+	private WebElement entervaluerangefield;
+	
+	// cil subsidairies
+	
+	@FindBy(xpath = "//input[@placeholder='Enter cil subsidiary name']")
+	private WebElement entercilsubsidairynamefield;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter google map url']" ) 
+	private WebElement entergooglemapurlfield;
+	
+	
 	
 	public void masterdata(String email, String pwd, String sidebarusermgmtname,
 			String Industrylistname, String ownershiptypename, String producttotradename,
-			String originofcoalname, String coalsourcename) throws InterruptedException
+			String originofcoalname, String coalsourcename,
+			String gradeofcoal, String cilsubsidairies ) throws InterruptedException
 	{
 		adminsigninpage adminsignin = new adminsigninpage(driver);
 		adminsignin.signinpage(email, pwd);
@@ -216,7 +235,8 @@ public class Masterdatapage  extends adminBasicpage {
 		javascriptclick(createnewbutton);
 		
 		waitforElement(clickcoalsourcedropdown);
-		javascriptclick(clickcoalsourcedropdown);
+//		javascriptclick(clickcoalsourcedropdown);
+		clickcoalsourcedropdown.click();
 		
 		coaloriginoptions.get(1).click();
 		
@@ -233,7 +253,88 @@ public class Masterdatapage  extends adminBasicpage {
 			 String listdetailsdata = listdata.get(1).getText();
 			 System.out.println("List data :- "+ listdetailsdata);
 		}
+		
+		
+		// Grade of coal
+		
+		ClickAction(sidebarusermgmtname);
+		
+		clickonmasterdatalist(gradeofcoal);
+		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(entercoalgradenamefield);
+		entercoalgradenamefield.sendKeys(setRandomNameformasterdata());
+		
+		waitforElement(clickoncoalorigindropdown);
+		clickoncoalorigindropdown.click();
+		
+		coaloriginoptions.get(1).click();
+		
+		waitforElement(clickoncoaltypedropdown);
+		clickoncoaltypedropdown.click();
+		
+		coaloriginoptions.get(1).click();
+
+		waitforElement(enterunitfield);
+		enterunitfield.sendKeys("NCV / FC");
+
+		waitforElement(entervaluerangefield);
+		entervaluerangefield.sendKeys("High purity, FC > 95%");
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		
+		Thread.sleep(2000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
+		
+		// cil subsidairies
+		
+		ClickAction(sidebarusermgmtname);
+				
+		clickonmasterdatalist(cilsubsidairies);
+				
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(entercilsubsidairynamefield);
+		entercilsubsidairynamefield.sendKeys("CIL Subsidairy name");
+		
+		waitforElement(entergooglemapurlfield);
+		entergooglemapurlfield.sendKeys("https://maps.app.goo.gl/LVUPWLi5Uob2o2wT7");
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		
+		Thread.sleep(2000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
+		
+		// mines
+		
+		// ports of operation
+		
+		// free lifting period options
+		
+		// payment terms options
+		
+		// delivery terms
+		
+		// delivery mode
+		
+		
+		
+		
 	}
+	
 	
 	
 	

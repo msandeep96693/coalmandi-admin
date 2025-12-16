@@ -16,9 +16,9 @@ public class MasterdataExecutionclass extends AdminBaseclass {
 				 prop.getProperty("ownershiptypename"), 
 				 prop.getProperty("producttotradename"),
 				 prop.getProperty("originofcoalname"),
-				 prop.getProperty("coalsourcename")
-				 
-				 
+				 prop.getProperty("coalsourcename"),
+				 prop.getProperty("gradeofcoal"),
+				 prop.getProperty("cilsubsidairies")
 				 
 				 );
 	}

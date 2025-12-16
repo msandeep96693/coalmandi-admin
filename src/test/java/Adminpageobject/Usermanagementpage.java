@@ -249,7 +249,7 @@ public class Usermanagementpage extends adminBasicpage {
 		entitynamefield1.sendKeys(Keys.CONTROL + "a");
 		entitynamefield1.sendKeys(Keys.DELETE);
 		Thread.sleep(1000);
-		entitynamefield1.sendKeys("Update ops branch");
+//		entitynamefield1.sendKeys("Update ops branch");
 		
 		waitforElement(clickonstatedropdown);
 		javascriptclick(clickonstatedropdown);
@@ -272,7 +272,7 @@ public class Usermanagementpage extends adminBasicpage {
 		waitforElement(districtsearchfield);
 		districtsearchfield.clear();
 		Thread.sleep(1000);
-		districtsearchfield.sendKeys("Baksa");
+		districtsearchfield.sendKeys("jorhat");
 		stateanddistrictoptions.get(0).click();
 		driver.findElement(By.xpath("//div[.='Edit ops Entity']")).click();
 		
@@ -313,8 +313,10 @@ public class Usermanagementpage extends adminBasicpage {
 		
 		// update ops manager
 		
+//		driver.findElement(By.xpath("(//button)[12]")).click();
 		waitforElement(kebabbutton);
-		javascriptclick(kebabbutton);
+//		javascriptclick(kebabbutton);
+		kebabbutton.click();
 		
 		waitforElement(editbutton);
 		javascriptclick(editbutton);
@@ -325,12 +327,6 @@ public class Usermanagementpage extends adminBasicpage {
 		fullnamefield.sendKeys(Keys.DELETE);
 		fullnamefield.sendKeys(setRandomName());
 		
-		waitforElement(enteremailaddressfield);
-		enteremailaddressfield.click();
-		enteremailaddressfield.sendKeys(Keys.CONTROL + "a");
-		enteremailaddressfield.sendKeys(Keys.DELETE);
-		enteremailaddressfield.sendKeys(setRandomEmail());
-		
 		waitforElement(enterphonenumberfield);
 		enterphonenumberfield.click();
 		enterphonenumberfield.sendKeys(Keys.CONTROL + "a");
@@ -338,7 +334,8 @@ public class Usermanagementpage extends adminBasicpage {
 		enterphonenumberfield.sendKeys(setRandomMobileNumber());
 		
 		waitforElement(updateopsmanagerbtn);
-		javascriptclick(updateopsmanagerbtn);
+//		javascriptclick(updateopsmanagerbtn);
+		updateopsmanagerbtn.click();
 		
 		waitforElement(clickonprofile);
 		javascriptclick(clickonprofile);
