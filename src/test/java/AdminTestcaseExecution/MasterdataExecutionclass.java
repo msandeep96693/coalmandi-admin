@@ -18,8 +18,12 @@ public class MasterdataExecutionclass extends AdminBaseclass {
 				 prop.getProperty("originofcoalname"),
 				 prop.getProperty("coalsourcename"),
 				 prop.getProperty("gradeofcoal"),
-				 prop.getProperty("cilsubsidairies")
-				 
+				 prop.getProperty("cilsubsidairies"),
+				 prop.getProperty("portsofoperation"),
+				 prop.getProperty("freeliftingperioidoptions"),
+				 prop.getProperty("paymenttermsoptions"),
+				 prop.getProperty("deliveryterms"),
+				 prop.getProperty("deliverymode")
 				 );
 	}
 

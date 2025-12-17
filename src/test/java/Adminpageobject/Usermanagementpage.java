@@ -249,7 +249,7 @@ public class Usermanagementpage extends adminBasicpage {
 		entitynamefield1.sendKeys(Keys.CONTROL + "a");
 		entitynamefield1.sendKeys(Keys.DELETE);
 		Thread.sleep(1000);
-//		entitynamefield1.sendKeys("Update ops branch");
+		entitynamefield1.sendKeys("Update ops branch");
 		
 		waitforElement(clickonstatedropdown);
 		javascriptclick(clickonstatedropdown);
@@ -296,6 +296,7 @@ public class Usermanagementpage extends adminBasicpage {
 		
 		clickonviewbutton.get(0).click();
 		
+		Thread.sleep(1000);
 		waitforElement(createnewbutton);
 		javascriptclick(createnewbutton);
 		
@@ -313,10 +314,10 @@ public class Usermanagementpage extends adminBasicpage {
 		
 		// update ops manager
 		
-//		driver.findElement(By.xpath("(//button)[12]")).click();
-		waitforElement(kebabbutton);
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/main/div/div/div[2]/div/div/div/div/div/div/div/div/table/tbody/tr[2]/td[6]/button")).click();
+//		waitforElement(kebabbutton);
 //		javascriptclick(kebabbutton);
-		kebabbutton.click();
+//		kebabbutton.click();
 		
 		waitforElement(editbutton);
 		javascriptclick(editbutton);
@@ -345,7 +346,7 @@ public class Usermanagementpage extends adminBasicpage {
 	}
 	
 	public void createandupdatekpoentityandmanager(String email, String pwd, String sidebarusermgmtname,
-			String Entityname) throws InterruptedException
+			String Entityname, String kpoGstnumber, String updatekpogstnumber ) throws InterruptedException
 	{
 		adminsigninpage adminsignin = new adminsigninpage(driver);
 		adminsignin.signinpage(email, pwd);
@@ -367,7 +368,7 @@ public class Usermanagementpage extends adminBasicpage {
 		enteraddresstextarea.sendKeys("BTM 1st stage, Bangalore");
 		
 		waitforElement(gstnumberfield);
-		gstnumberfield.sendKeys("09BTWPS5056G1ZV");
+		gstnumberfield.sendKeys(kpoGstnumber);
 		
 		waitforElement(maxteammemberfield);
 		maxteammemberfield.sendKeys("2");
@@ -417,13 +418,6 @@ public class Usermanagementpage extends adminBasicpage {
 		enteraddresstextarea.sendKeys(Keys.DELETE);
 		Thread.sleep(1000);
 		enteraddresstextarea.sendKeys("ATM 1st stage, Mangalore");
-		
-		waitforElement(gstnumberfield);
-		gstnumberfield.click();
-		gstnumberfield.sendKeys(Keys.CONTROL + "a");
-		gstnumberfield.sendKeys(Keys.DELETE);
-		Thread.sleep(1000);
-		gstnumberfield.sendKeys("29CABPB5697M1Z5");
 		
 		waitforElement(maxteammemberfield);
 		maxteammemberfield.sendKeys(Keys.BACK_SPACE);

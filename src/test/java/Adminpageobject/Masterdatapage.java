@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.checkerframework.checker.interning.qual.FindDistinct;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Masterdatapage  extends adminBasicpage {
 
@@ -70,6 +72,9 @@ public class Masterdatapage  extends adminBasicpage {
 	@FindBy(xpath = "//div[@class='ant-select-item-option-content']")
 	private List<WebElement> coaloriginoptions;
 	
+	@FindBy(xpath = "//div[@class='ant-select-item-option-content']")
+	private List<WebElement> optionslist;
+	
 	@FindBy(xpath = "//input[@placeholder='Enter coal source']")
 	private WebElement coalsourcefield;
 	
@@ -101,12 +106,59 @@ public class Masterdatapage  extends adminBasicpage {
 	@FindBy(xpath = "//input[@placeholder='Enter google map url']" ) 
 	private WebElement entergooglemapurlfield;
 	
+	// ports of operation 
+	@FindBy(xpath = "//input[@placeholder='Enter port name']")
+	private WebElement enterportnamefield;
+	
+	@FindBy(xpath = "(//span[@class='ant-select-selection-item'])[2]")
+	private WebElement clickoncountrydropdown;
+	
+	@FindBy(xpath = "(//span[@class='ant-select-selection-item'])[3]")
+	private WebElement clickonporttypedropdown;
+	
+	@FindBy(xpath = "//div[@class='ant-select-item-option-content']")
+	private List<WebElement> countryandporttypeoptions;
+	
+	// Free lifting period
+	
+	@FindBy(xpath = "//input[@placeholder='Enter period description']")
+	private WebElement enterperioddescriptionfield;
+	
+	@FindBy(xpath = "//input[@placeholder='Enter days']")
+	private WebElement enterdaysfield;
+	
+	// payment terms 
+	@FindBy(xpath = "//input[@placeholder='Enter payment term']")
+	private WebElement enterpaymenttermsfield;
+	
+	// Delivery terms 
+	
+	@FindBy(xpath = "//input[@placeholder='Enter term name']")
+	private WebElement entertermnamefield;
+	
+	@FindBy(xpath = "//textarea")
+	private WebElement enterdescriptiontextarea;
+	
+	// delivery mode
+	@FindBy(xpath = "//input[@placeholder='Enter delivery mode']")
+	private WebElement enterdeliverymodefield;
+	
+	// logout
+	@FindBy(xpath = "//span[@class='text-sm font-medium text-white']") 
+	private WebElement clickonprofile;
+	
+	@FindBy(xpath = "//button[.='Logout']")
+	private WebElement clickonlogoutbtn;
+	
 	
 	
 	public void masterdata(String email, String pwd, String sidebarusermgmtname,
 			String Industrylistname, String ownershiptypename, String producttotradename,
 			String originofcoalname, String coalsourcename,
-			String gradeofcoal, String cilsubsidairies ) throws InterruptedException
+			String gradeofcoal, String cilsubsidairies,
+			String portsofoperation, String freeliftingperioidoptions,
+			String paymenttermsoptions, String deliveryterms,
+			String deliverymode ) throws InterruptedException
 	{
 		adminsigninpage adminsignin = new adminsigninpage(driver);
 		adminsignin.signinpage(email, pwd);
@@ -255,7 +307,7 @@ public class Masterdatapage  extends adminBasicpage {
 		}
 		
 		
-		// Grade of coal
+		// ------------------- Grade of coal ------------------------
 		
 		ClickAction(sidebarusermgmtname);
 		
@@ -275,7 +327,11 @@ public class Masterdatapage  extends adminBasicpage {
 		waitforElement(clickoncoaltypedropdown);
 		clickoncoaltypedropdown.click();
 		
-		coaloriginoptions.get(1).click();
+		Thread.sleep(3000);
+//		coaloriginoptions.get(0).click();
+//		javascriptclick(coaloriginoptions.get(0));
+		
+		selectOptionFromDropdown("My Coke");
 
 		waitforElement(enterunitfield);
 		enterunitfield.sendKeys("NCV / FC");
@@ -293,7 +349,7 @@ public class Masterdatapage  extends adminBasicpage {
 			 System.out.println("List data :- "+ listdetailsdata);
 		}
 		
-		// cil subsidairies
+		// --------------------- cil subsidairies -----------------------
 		
 		ClickAction(sidebarusermgmtname);
 				
@@ -303,7 +359,7 @@ public class Masterdatapage  extends adminBasicpage {
 		javascriptclick(createnewbutton);
 		
 		waitforElement(entercilsubsidairynamefield);
-		entercilsubsidairynamefield.sendKeys("CIL Subsidairy name");
+		entercilsubsidairynamefield.sendKeys(setRandomNameformasterdata());
 		
 		waitforElement(entergooglemapurlfield);
 		entergooglemapurlfield.sendKeys("https://maps.app.goo.gl/LVUPWLi5Uob2o2wT7");
@@ -320,18 +376,140 @@ public class Masterdatapage  extends adminBasicpage {
 		
 		// mines
 		
-		// ports of operation
+		// --------------------- ports of operation ----------------
+		
+		ClickAction(sidebarusermgmtname);
+		
+		clickonmasterdatalist(portsofoperation);
+		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(enterportnamefield);
+		enterportnamefield.sendKeys(setRandomNameformasterdata());
+		
+		waitforElement(clickoncountrydropdown);
+		clickoncountrydropdown.click();
+		
+		countryandporttypeoptions.get(1).click();
+		
+		waitforElement(clickonporttypedropdown);
+		clickonporttypedropdown.click();
+		
+		Thread.sleep(3000);
+//		countryandporttypeoptions.get(1).click();
+		selectOptionFromDropdown("Domestic");
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		
+		Thread.sleep(2000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
 		
 		// free lifting period options
 		
+		ClickAction(sidebarusermgmtname);
+		
+		clickonmasterdatalist(freeliftingperioidoptions);
+		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(enterperioddescriptionfield);
+		enterperioddescriptionfield.sendKeys("Enter description about free lifting period");
+		
+		waitforElement(enterdaysfield);
+		enterdaysfield.sendKeys("5");
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		
+		Thread.sleep(2000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
+		
+
 		// payment terms options
+		
+		ClickAction(sidebarusermgmtname);
+		
+		clickonmasterdatalist(paymenttermsoptions);
+		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(enterpaymenttermsfield);
+		enterpaymenttermsfield.sendKeys("LC for 50 days");
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		
+		Thread.sleep(2000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
 		
 		// delivery terms
 		
+		ClickAction(sidebarusermgmtname);
+		
+		clickonmasterdatalist(deliveryterms);
+		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(entertermnamefield);
+		entertermnamefield.sendKeys("CFR 1");
+		
+		waitforElement(enterdescriptiontextarea);
+		enterdescriptiontextarea.sendKeys("Description about - Delivery terms");
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		
+		Thread.sleep(2000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
+		
 		// delivery mode
 		
+		ClickAction(sidebarusermgmtname);
 		
+		clickonmasterdatalist(deliverymode);
 		
+		waitforElement(createnewbutton);
+		javascriptclick(createnewbutton);
+		
+		waitforElement(enterdeliverymodefield);
+		enterdeliverymodefield.sendKeys("Aeroplane");
+		
+		waitforElement(createbutton);
+		javascriptclick(createbutton);
+		
+		Thread.sleep(2000);
+		for(int i = 0; i<= listdata.size(); i++)
+		{
+			 String listdetailsdata = listdata.get(1).getText();
+			 System.out.println("List data :- "+ listdetailsdata);
+		}
+		
+		waitforElement(clickonprofile);
+		javascriptclick(clickonprofile);
+		
+		waitforElement(clickonlogoutbtn);
+		clickonlogoutbtn.click();
 		
 	}
 	
@@ -351,20 +529,56 @@ public class Masterdatapage  extends adminBasicpage {
 	    
 	}
 	
-	public void clickonmasterdatalist(String expectedText)
-	{
-		for (WebElement masterdatalistname : listofmasterdatalist) 
-		{
-		String masterdatalistdata = masterdatalistname.getText().trim();
-		System.out.println(" Master data : -"+masterdatalistdata);
-			
-		    if (masterdatalistdata.equalsIgnoreCase(expectedText) || masterdatalistdata.contains(expectedText)) 
-		    {
-		    	masterdatalistname.click();
-		        break;
-		    }
-		}
+	public void clickonmasterdatalist(String expectedText) {
+
+	    for (int i = 0; i < listofmasterdatalist.size(); i++) {
+
+	        WebElement element = listofmasterdatalist.get(i);
+	        String text = element.getText().trim();
+
+//	        if (text.isEmpty()) continue;
+
+	        System.out.println("Master data : - " + text);
+
+	        if (text.equalsIgnoreCase(expectedText)
+	                || text.toLowerCase().contains(expectedText.toLowerCase())) {
+
+	            waituntilelementvisibleandclickable(element);
+	            javascriptclick(element);
+	            return;
+	        }
+	    }
+	}
+
+public void selectOptionFromDropdown(String optionName) {
+	    
+
+	    for (WebElement option : optionslist) 
+	    {
+	        String text = option.getText().trim();
+	        
+	        try {
+	        	if (text.equalsIgnoreCase(optionName) || text.contains(optionName)) 
+	        	{
+		            System.out.println("Selecting option :- " + text);
+		            waitforElement(option);  // <-- your existing custom wait method
+		            //option.click();
+		            javascriptclick(option);
+		            return; // Exit after selecting
+		        }
+			} catch (Exception e) {
+				System.out.println("Text :-"+ text);
+				if (text.equalsIgnoreCase(optionName) || text.contains(optionName)) 
+				{
+					System.out.println("Selecting option :- " + text);
+		            waitforElement(option);  // <-- your existing custom wait method
+//		            option.click();
+		            javascriptclick(option);
+		            return; // Exit after selecting
+		        }
+			}
+	     }
+	    throw new RuntimeException("Option '" + optionName + "' not found in dropdown!");
 	}
 	
-
 }
